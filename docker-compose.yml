@@ -1,0 +1,34 @@
+# Entorno local de desarrollo: PostgreSQL 16, MailHog (SMTP + UI) y mock HTTP de pasarela SMS.
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: crm
+      POSTGRES_USER: crm
+      POSTGRES_PASSWORD: crm
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U crm -d crm"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # UI web
+
+  sms-mock:
+    image: wiremock/wiremock:3.9.1
+    command: ["--port", "8080", "--verbose"]
+    ports:
+      - "8089:8080"
+    volumes:
+      - ./docker/sms-mock/mappings:/home/wiremock/mappings:ro
+
+volumes:
+  pgdata:

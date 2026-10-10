@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/sms/send"
+  },
+  "response": {
+    "status": 202,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": {
+      "messageId": "{{randomValue length=16 type='ALPHANUMERIC'}}",
+      "status": "ACCEPTED"
+    },
+    "transformers": ["response-template"]
+  }
+}
