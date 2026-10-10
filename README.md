@@ -21,3 +21,8 @@ mvn -pl crm-app spring-boot:run       # http://localhost:8080/actuator/health ·
 ```
 Variables de entorno de la aplicación: `CRM_DB_URL`, `CRM_DB_USER`, `CRM_DB_PASSWORD`.
 El mock SMS acepta `POST http://localhost:8089/sms/send` y responde `202` con un `messageId`.
+
+## Calidad
+- `mvn spotless:apply` formatea el código (google-java-format); `mvn -B verify` falla si hay código sin formatear.
+- ArchUnit (`crm-app/src/test/java/org/example/crm/architecture`) verifica la arquitectura hexagonal de todos los módulos.
+- JaCoCo exige ≥ 80 % de líneas en los paquetes `org.example.crm.*.domain` (los tests de dominio deben vivir en el propio módulo).
