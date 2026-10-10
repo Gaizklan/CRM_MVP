@@ -42,3 +42,10 @@ Consumidores del segmento S1 con opt-in de email que abrieron un email en los ú
   {"eventOccurred": {"type": "EMAIL_OPENED", "within": "P2D"}}
 ]}
 ```
+
+## Traducción a SQL (segmentación)
+`Segmenter.matchingConsumers(rule)` traduce la regla a una consulta **parametrizada** (`RuleSqlTranslator`) y la ejecuta en la Marca actual. Garantías:
+- Ningún valor del usuario aparece en el texto SQL: todos van como parámetros (`SqlFragment` verifica que nº de `?` = nº de parámetros).
+- Mismo resultado que en memoria (test de equivalencia `RuleSqlEquivalenceIT`).
+- `crm-rules` no conoce las tablas de `crm-consumer`: usa los fragmentos que publica `SegmentationSqlCatalog`.
+- No traducibles (error `RuleNotTranslatableException`): `eventOccurred` (hasta que exista el registro de eventos, P11) y campos que el catálogo no exponga o no permita buscar por subcadena.
