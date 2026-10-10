@@ -3,9 +3,12 @@ package org.example.crm.rules.infrastructure;
 import java.time.Clock;
 import org.example.crm.consumer.application.ConsentChecker;
 import org.example.crm.consumer.application.ConsumerService;
+import org.example.crm.consumer.application.SegmentationSqlCatalog;
 import org.example.crm.consumer.application.SubscriptionQuery;
 import org.example.crm.rules.application.RuleEngine;
 import org.example.crm.rules.application.RuleReader;
+import org.example.crm.rules.application.SegmentationQuery;
+import org.example.crm.rules.application.Segmenter;
 import org.example.crm.rules.application.UserEventLookup;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Bean;
@@ -30,5 +33,10 @@ public class RulesConfiguration {
     // Sin módulo de tracking (P11) no hay eventos: eventOccurred es siempre falso.
     UserEventLookup lookup = events.getIfAvailable(() -> (consumer, type, since) -> false);
     return new RuleEngine(reader, consumers, consents, subscriptions, lookup, clock);
+  }
+
+  @Bean
+  Segmenter segmenter(SegmentationSqlCatalog catalog, SegmentationQuery query) {
+    return new Segmenter(catalog, query);
   }
 }
