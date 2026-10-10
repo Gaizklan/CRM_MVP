@@ -22,6 +22,12 @@ management:
     health:
       show-details: never
 
+crm:
+  # Primer usuario ADMIN, creado solo si no existe ningún usuario interno. Solo por entorno.
+  bootstrap-admin:
+    username: ${CRM_BOOTSTRAP_ADMIN_USERNAME:}
+    password: ${CRM_BOOTSTRAP_ADMIN_PASSWORD:}
+
 springdoc:
   api-docs:
     path: /v3/api-docs
