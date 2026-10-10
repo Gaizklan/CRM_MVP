@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  checks: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: mvn -B verify
+        shell: bash
+        run: |
+          set -o pipefail
+          mvn -B verify 2>&1 | tee build.log
+      - name: Resumen de tests
+        if: always()
+        shell: bash
+        run: |
+          # Anotación con el recuento de tests por clase (incluidos los saltados) para
+          # comprobar que los tests con Testcontainers se ejecutan realmente en CI.
+          msg=$(grep -E 'Tests run:.*in org\.' build.log | sed -E 's/^.*Tests run/Tests run/' \
+            | head -150 | sed -e 's/%/%25/g' | awk '{printf "%s%%0A", $0}')
+          echo "::notice title=tests::${msg}"
+      - name: Resumen de errores como anotación
+        if: failure()
+        shell: bash
+        run: |
+          # Publica las líneas de error del build en una única anotación del check run,
+          # para poder diagnosticar fallos sin acceso a los logs completos.
+          msg=$(grep -E '\[ERROR\]|FAILURE|Tests run:.*(Failures: [1-9]|Errors: [1-9])|expected|but was|Exception|Caused by' build.log \
+            | grep -v 'Re-run Maven' | head -150 | cut -c1-400 \
+            | sed -e 's/%/%25/g' | awk '{printf "%s%%0A", $0}')
+          echo "::error title=mvn verify::${msg}"
