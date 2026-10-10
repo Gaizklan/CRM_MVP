@@ -28,11 +28,14 @@ jobs:
         if: always()
         shell: bash
         run: |
-          # Anotación con el recuento de tests por clase (incluidos los saltados) para
+          # Anotaciones con el recuento de tests (unitarios e integración por separado) para
           # comprobar que los tests con Testcontainers se ejecutan realmente en CI.
-          msg=$(grep -E 'Tests run:.*in org\.' build.log | sed -E 's/^.*Tests run/Tests run/' \
-            | head -150 | sed -e 's/%/%25/g' | awk '{printf "%s%%0A", $0}')
-          echo "::notice title=tests::${msg}"
+          summarize() {
+            grep -E 'Tests run:.*in org\.' build.log | grep -E "$1" | sed -E 's/^.*Tests run: ([0-9]+), Failures: ([0-9]+), Errors: ([0-9]+), Skipped: ([0-9]+).* in org\.example\.crm\./\1\/\2\/\3\/\4 /' \
+              | sed -e 's/%/%25/g' | awk '{printf "%s%%0A", $0}'
+          }
+          echo "::notice title=tests (run/fail/err/skip) unit::$(summarize 'Test( |$)|Test\b')"
+          echo "::notice title=tests (run/fail/err/skip) IT::$(summarize 'IT( |$)|IT\b')"
       - name: Resumen de errores como anotación
         if: failure()
         shell: bash
