@@ -14,10 +14,11 @@ class TestSqlCatalog implements SegmentationSqlCatalog {
   @Override
   public Optional<ProfileColumn> profileColumn(String field) {
     return switch (field) {
-      case "registeredAt" -> Optional.of(new ProfileColumn("c.registered_at", false));
-      case "email" -> Optional.of(new ProfileColumn("c.email_hash", false));
-      case "phone" -> Optional.empty();
-      default -> Optional.of(new ProfileColumn("c." + field, true));
+      case "registeredAt" -> Optional.of(new ProfileColumn("c.registered_at", true, false));
+      case "email" -> Optional.of(new ProfileColumn("c.email_hash", true, false));
+      case "phone" -> Optional.of(new ProfileColumn("c.phone_enc", false, false));
+      case "status" -> Optional.empty();
+      default -> Optional.of(new ProfileColumn("c." + field, true, true));
     };
   }
 

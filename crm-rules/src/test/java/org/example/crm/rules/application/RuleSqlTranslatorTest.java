@@ -122,14 +122,19 @@ class RuleSqlTranslatorTest {
     assertThatThrownBy(
             () ->
                 sql(
-                    "{\"and\":[{\"eventOccurred\":{\"type\":\"LOGIN\",\"within\":\"P1D\"}},{\"exists\":{\"field\":\"phone\"}}]}"))
+                    "{\"and\":[{\"eventOccurred\":{\"type\":\"LOGIN\",\"within\":\"P1D\"}},{\"exists\":{\"field\":\"status\"}}]}"))
         .isInstanceOf(RuleNotTranslatableException.class)
         .hasMessageContaining("eventOccurred(LOGIN)")
-        .hasMessageContaining("phone")
+        .hasMessageContaining("status")
         .satisfies(e -> assertThat(((RuleNotTranslatableException) e).reasons()).hasSize(2));
     assertThatThrownBy(() -> sql("{\"contains\":{\"field\":\"email\",\"value\":\"@x\"}}"))
         .isInstanceOf(RuleNotTranslatableException.class)
         .hasMessageContaining("no es posible en SQL");
+    assertThatThrownBy(() -> sql("{\"eq\":{\"field\":\"phone\",\"value\":\"+34600000000\"}}"))
+        .isInstanceOf(RuleNotTranslatableException.class)
+        .hasMessageContaining("cifrado");
+    assertThat(sql("{\"exists\":{\"field\":\"phone\"}}").sql())
+        .isEqualTo("(c.phone_enc IS NOT NULL)");
   }
 
   @Test

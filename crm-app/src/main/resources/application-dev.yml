@@ -2,3 +2,8 @@
 spring:
   flyway:
     locations: classpath:db/migration,classpath:db/devdata
+
+crm:
+  # MailHog y el mock SMS de docker compose escuchan sin TLS en localhost.
+  outbound-tls:
+    allow-insecure-localhost: true

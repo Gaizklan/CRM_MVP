@@ -3,6 +3,7 @@ package org.example.crm.consumer.infrastructure.persistence;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.example.crm.common.application.crypto.PiiCipher;
 import org.example.crm.common.domain.BrandId;
 import org.example.crm.common.domain.SqlFragment;
 import org.example.crm.consumer.application.SegmentationSqlCatalog;
@@ -14,14 +15,29 @@ import org.springframework.stereotype.Component;
 @Component
 class PostgresSegmentationSqlCatalog implements SegmentationSqlCatalog {
 
+  /**
+   * Email y teléfono están cifrados (P10): el email solo admite igualdad mediante su índice ciego y
+   * el teléfono solo {@code exists}.
+   */
   private static final Map<String, ProfileColumn> PROFILE =
       Map.of(
-          "email", new ProfileColumn("c.email", true),
-          "phone", new ProfileColumn("c.phone", true),
-          "language", new ProfileColumn("c.language", true),
-          "segment", new ProfileColumn("c.segment", true),
-          "status", new ProfileColumn("c.status", true),
-          "registeredAt", new ProfileColumn("c.registered_at", false));
+          "email", new ProfileColumn("c.email_hash", true, false),
+          "phone", new ProfileColumn("c.phone_ciphertext", false, false),
+          "language", new ProfileColumn("c.language", true, true),
+          "segment", new ProfileColumn("c.segment", true, true),
+          "status", new ProfileColumn("c.status", true, true),
+          "registeredAt", new ProfileColumn("c.registered_at", true, false));
+
+  private final PiiCipher cipher;
+
+  PostgresSegmentationSqlCatalog(PiiCipher cipher) {
+    this.cipher = cipher;
+  }
+
+  @Override
+  public Object bindProfileValue(String field, Object value) {
+    return field.equals("email") ? cipher.blindIndex((String) value) : value;
+  }
 
   @Override
   public Optional<ProfileColumn> profileColumn(String field) {

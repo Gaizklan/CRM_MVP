@@ -19,7 +19,11 @@ docker compose up -d                  # PostgreSQL 16 (5432), MailHog (SMTP 1025
 mvn -B verify                         # build + tests (los tests con Testcontainers se saltan sin Docker)
 mvn -pl crm-app spring-boot:run       # http://localhost:8080/actuator/health · /v3/api-docs · /swagger-ui.html
 ```
-Variables de entorno de la aplicación: `CRM_DB_URL`, `CRM_DB_USER`, `CRM_DB_PASSWORD`.
+Variables de entorno de la aplicación: `CRM_DB_URL`, `CRM_DB_USER`, `CRM_DB_PASSWORD` y las claves de cifrado de PII (obligatorias, ver [ADR 0002](docs/adr/0002-cifrado-pii-y-claves.md)):
+```bash
+export CRM_PII_ENCRYPTION_KEY=$(openssl rand -base64 32)
+export CRM_PII_BLIND_INDEX_KEY=$(openssl rand -base64 32)
+```
 El mock SMS acepta `POST http://localhost:8089/sms/send` y responde `202` con un `messageId`.
 
 ## Calidad

@@ -93,7 +93,7 @@ public final class RuleSqlTranslator {
   private SqlFragment equal(FieldRef field, List<Literal> values) {
     return switch (field.kind()) {
       case PROFILE -> {
-        Optional<ProfileColumn> column = profile(field);
+        Optional<ProfileColumn> column = comparable(field);
         if (column.isEmpty()) {
           yield TRUE;
         }
@@ -158,7 +158,7 @@ public final class RuleSqlTranslator {
   private SqlFragment ordered(FieldRef field, String operator, Literal value) {
     return switch (field.kind()) {
       case PROFILE ->
-          profile(field)
+          comparable(field)
               .map(
                   col ->
                       SqlFragment.of(
@@ -182,7 +182,7 @@ public final class RuleSqlTranslator {
   private SqlFragment between(FieldRef field, Literal from, Literal to) {
     return switch (field.kind()) {
       case PROFILE ->
-          profile(field)
+          comparable(field)
               .map(
                   col ->
                       SqlFragment.of(
@@ -275,6 +275,16 @@ public final class RuleSqlTranslator {
             + ")",
         type.name(),
         value);
+  }
+
+  /** Columna de perfil que admite comparación por valor (no cifrada de forma no determinista). */
+  private Optional<ProfileColumn> comparable(FieldRef field) {
+    Optional<ProfileColumn> column = profile(field);
+    if (column.isPresent() && !column.get().equality()) {
+      unsupported("el campo " + field.path() + " está cifrado y solo admite 'exists' en SQL");
+      return Optional.empty();
+    }
+    return column;
   }
 
   private Optional<ProfileColumn> profile(FieldRef field) {

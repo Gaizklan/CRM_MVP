@@ -16,8 +16,14 @@ import org.example.crm.consumer.domain.PreferenceType;
  */
 public interface SegmentationSqlCatalog {
 
-  /** Columna de un campo de perfil y sus capacidades. */
-  record ProfileColumn(String expression, boolean substringSearch) {}
+  /**
+   * Columna de un campo de perfil y sus capacidades.
+   *
+   * @param equality admite igualdad / {@code in} / orden (falso para columnas cifradas no
+   *     deterministas: solo {@code exists})
+   * @param substringSearch admite {@code contains}
+   */
+  record ProfileColumn(String expression, boolean equality, boolean substringSearch) {}
 
   /**
    * Columna SQL de un campo de perfil ({@code email, phone, language, segment, status,

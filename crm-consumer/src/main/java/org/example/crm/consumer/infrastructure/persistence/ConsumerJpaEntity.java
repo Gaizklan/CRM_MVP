@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import org.example.crm.common.application.crypto.PiiCipher;
 import org.example.crm.common.infrastructure.persistence.BrandScopedEntity;
 import org.example.crm.consumer.domain.Consumer;
 import org.example.crm.consumer.domain.ConsumerId;
@@ -30,11 +31,17 @@ public class ConsumerJpaEntity extends BrandScopedEntity {
 
   @Id private UUID id;
 
-  @Column(nullable = false, length = 254)
-  private String email;
+  /** Email cifrado (AES-GCM, ver ADR 0002). */
+  @Column(name = "email_ciphertext", nullable = false, length = 512)
+  private String emailCiphertext;
 
-  @Column(length = 16)
-  private String phone;
+  /** Índice ciego (HMAC) del email normalizado: búsqueda y unicidad por Marca. */
+  @Column(name = "email_hash", nullable = false, length = 64)
+  private String emailHash;
+
+  /** Teléfono cifrado (AES-GCM). */
+  @Column(name = "phone_ciphertext", length = 512)
+  private String phoneCiphertext;
 
   @Column(nullable = false, length = 10)
   private String language;
@@ -64,18 +71,27 @@ public class ConsumerJpaEntity extends BrandScopedEntity {
 
   protected ConsumerJpaEntity() {}
 
-  static ConsumerJpaEntity create(Consumer consumer) {
+  static ConsumerJpaEntity create(Consumer consumer, PiiCipher cipher) {
     ConsumerJpaEntity e = new ConsumerJpaEntity();
     e.id = consumer.id().value();
     e.registeredAt = consumer.registeredAt();
     e.assignBrand(consumer.brandId());
-    e.apply(consumer);
+    e.apply(consumer, cipher);
     return e;
   }
 
-  void apply(Consumer consumer) {
-    email = consumer.email().value();
-    phone = consumer.phone().map(PhoneNumber::value).orElse(null);
+  void apply(Consumer consumer, PiiCipher cipher) {
+    String hash = cipher.blindIndex(consumer.email().value());
+    if (!hash.equals(emailHash) || cipher.needsReencryption(emailCiphertext)) {
+      emailCiphertext = cipher.encrypt(consumer.email().value());
+      emailHash = hash;
+    }
+    String phone = consumer.phone().map(PhoneNumber::value).orElse(null);
+    String currentPhone = phoneCiphertext == null ? null : cipher.decrypt(phoneCiphertext);
+    if (!java.util.Objects.equals(phone, currentPhone)
+        || cipher.needsReencryption(phoneCiphertext)) {
+      phoneCiphertext = cipher.encrypt(phone);
+    }
     language = consumer.language().value();
     segment = consumer.segment().orElse(null);
     status = consumer.status();
@@ -85,12 +101,12 @@ public class ConsumerJpaEntity extends BrandScopedEntity {
     consumer.preferences().forEach((k, v) -> preferences.put(k, PreferenceEmbeddable.from(v)));
   }
 
-  Consumer toDomain() {
+  Consumer toDomain(PiiCipher cipher) {
     return Consumer.restore(
         new ConsumerId(id),
         getBrandId(),
-        new Email(email),
-        phone == null ? null : new PhoneNumber(phone),
+        new Email(cipher.decrypt(emailCiphertext)),
+        phoneCiphertext == null ? null : new PhoneNumber(cipher.decrypt(phoneCiphertext)),
         new LanguageTag(language),
         segment,
         status,
