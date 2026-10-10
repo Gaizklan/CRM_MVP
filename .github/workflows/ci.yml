@@ -43,3 +43,9 @@ jobs:
             | grep -v 'Re-run Maven' | head -150 | cut -c1-400 \
             | sed -e 's/%/%25/g' | awk '{printf "%s%%0A", $0}')
           echo "::error title=mvn verify::${msg}"
+          # Mensajes de fallo de los informes de surefire/failsafe (aserciones y causas)
+          det=$(for f in */target/surefire-reports/*.txt */target/failsafe-reports/*.txt; do
+                  grep -q -E 'FAILURE|ERROR' "$f" 2>/dev/null && { echo "== $f"; grep -v -E '^\s+at (org\.junit|java\.|jdk\.|org\.apache\.maven|org\.springframework\.test)' "$f" | head -80; }
+                done || true)
+          det=$(echo "$det" | head -300 | cut -c1-500 | sed -e 's/%/%25/g' | awk '{printf "%s%%0A", $0}')
+          if [ -n "$det" ]; then echo "::error title=test details::${det}"; fi
