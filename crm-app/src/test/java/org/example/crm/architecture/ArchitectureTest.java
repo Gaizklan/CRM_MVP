@@ -27,6 +27,6 @@ class ArchitectureTest {
 
   @Test
   void modulesDoNotAccessPersistenceOfOtherModules() {
-    ArchitectureRules.noCrossModulePersistenceAccess(ROOT).check(productionClasses);
+    ArchitectureRules.noCrossModulePersistenceAccess(ROOT, "common").check(productionClasses);
   }
 }
