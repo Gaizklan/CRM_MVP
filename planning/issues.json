@@ -1,0 +1,877 @@
+{
+  "labels": {
+    "epic": "5319e7",
+    "story": "0e8a16",
+    "infra": "c5def5",
+    "security": "d93f0b",
+    "privacy": "b60205",
+    "campaigns": "1d76db",
+    "cms": "fbca04",
+    "web": "0052cc",
+    "tracking": "006b75",
+    "modernized": "bfd4f2",
+    "needs-decision": "e99695",
+    "follow-up": "ededed"
+  },
+  "milestones": [
+    {
+      "key": "M0",
+      "title": "M0 Fundaciones",
+      "description": "Monorepo, multimarca, consumidores, consentimientos, reglas, seguridad, CI"
+    },
+    {
+      "key": "M1",
+      "title": "M1 Campañas básicas",
+      "description": "Poblaciones, plantillas, email/SMS, workflow lineal, control, reintentos, recuperación"
+    },
+    {
+      "key": "M2",
+      "title": "M2 Portal y CMS",
+      "description": "Portal del consumidor y CMS con renderizado personalizado"
+    },
+    {
+      "key": "M3",
+      "title": "M3 Campañas avanzadas",
+      "description": "Condiciones, triggered, MGM, coleccionables, push, inbox, pruebas"
+    },
+    {
+      "key": "M4",
+      "title": "M4 Medición",
+      "description": "Tracking de contenidos, analítica web, KPIs, BI"
+    }
+  ],
+  "epics": [
+    {
+      "key": "E0",
+      "title": "EPIC 0 · Plataforma base",
+      "labels": [
+        "epic"
+      ],
+      "body": "Brief: [`docs/briefs/01-architecture.md`](../blob/main/docs/briefs/01-architecture.md) · Requisitos: §1 y requisitos no funcionales\n\n## Issues\n- [ ] {{P01}} Esqueleto del monorepo Maven, aplicación y CI (M0)\n- [ ] {{P02}} Reglas de arquitectura y calidad (ArchUnit, Spotless, JaCoCo) (M0)\n- [ ] {{P03}} Soporte multimarca: entidad Marca y contexto de tenant (M0)\n- [ ] {{P04}} Usuarios internos, niveles de seguridad y roles (M0)\n- [ ] {{P05}} Modelo de consumidor y preferencias (M0)\n- [ ] {{P06}} Consentimientos opt-in/opt-out auditables (M0)\n- [ ] {{P07}} Suscripciones a servicios del programa (M0)\n- [ ] {{P08}} Motor de reglas de negocio: DSL y evaluación en memoria (M0)\n- [ ] {{P09}} Traducción del DSL de reglas a SQL para segmentación (M0)\n- [ ] {{P10}} Cifrado de datos personales y comunicaciones (M0)\n- [ ] {{P11}} Eventos de dominio y registro de eventos de usuario (M0)\n- [ ] {{P12}} Configuración por Marca (M0)\n- [ ] {{K02}} Exportación a herramienta de BI (M4)\n\n<!-- key:E0 -->"
+    },
+    {
+      "key": "E1",
+      "title": "EPIC 1 · Gestión de campañas",
+      "labels": [
+        "epic"
+      ],
+      "body": "Brief: [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md) · Requisitos: §2\n\n## Issues\n- [ ] {{C01}} Poblaciones: criterio de segmentación e instancias (M1)\n- [ ] {{C02}} Plantillas de mensaje (email texto, email HTML, SMS) (M1)\n- [ ] {{C03}} Canal email con varios servidores SMTP (M1)\n- [ ] {{C04}} Canal SMS con varios proveedores HTTP (M1)\n- [ ] {{C05}} Outbox de comunicaciones con verificación de opt-in e idempotencia (M1)\n- [ ] {{C06}} Reintentos configurables y estado de fallo (M1)\n- [ ] {{C07}} Modelo de campaña y definición de workflow (M1)\n- [ ] {{C08}} Motor de workflow: ejecución de nodos ACTION, WAIT y END (M1)\n- [ ] {{C09}} Control de ejecución: arrancar, pausar, reanudar, parar (M1)\n- [ ] {{C10}} Recuperación ante caídas sin duplicados (M1)\n- [ ] {{C11}} Tracking de envíos y archivo de comunicaciones (M1)\n- [ ] {{C12}} Campañas de difusión (broadcast) (M1)\n- [ ] {{C13}} Exportaciones por plantilla de fichero y consulta SQL (M1)\n- [ ] {{C14}} Tracking de apertura de email (M3)\n- [ ] {{C15}} Tracking de clics con códigos por zona (M3)\n- [ ] {{C16}} Condiciones y esperas por evento en el workflow; workflow de referencia (M3)\n- [ ] {{C17}} Campañas disparadas por eventos (triggered) (M3)\n- [ ] {{C18}} Generación de códigos únicos de respuesta y canje (M3)\n- [ ] {{C19}} Campañas Member get Member (MGM) (M3)\n- [ ] {{C20}} Campañas de coleccionables (puntos/códigos) (M3)\n- [ ] {{C21}} Canal de notificaciones push (M3)\n- [ ] {{C22}} Buzón del portal y banners/modales (M3)\n- [ ] {{C23}} Pruebas de campaña (dry-run) (M3)\n- [ ] {{C24}} Catálogo de plantillas de workflow reutilizables (M3)\n- [ ] {{K01}} KPIs de campañas y API de informes (M4)\n\n<!-- key:E1 -->"
+    },
+    {
+      "key": "E2",
+      "title": "EPIC 2 · Gestión de contenidos (CMS)",
+      "labels": [
+        "epic"
+      ],
+      "body": "Brief: [`docs/briefs/20-cms.md`](../blob/main/docs/briefs/20-cms.md) · Requisitos: §3\n\n## Issues\n- [ ] {{S01}} Modelo de contenido, tipos y assets (M2)\n- [ ] {{S02}} Versionado de contenidos (M2)\n- [ ] {{S03}} Workflow editorial con notificaciones (M2)\n- [ ] {{S04}} Permisos por categoría y tipo de contenido (M2)\n- [ ] {{S05}} Plantillas de página y catálogo de componentes (M2)\n- [ ] {{S06}} Renderizado personalizado según reglas (M2)\n- [ ] {{S07}} Menú de navegación dinámico (M2)\n- [ ] {{S08}} Contenidos multiidioma (M2)\n- [ ] {{S09}} Previsualización con perfil simulado (M2)\n- [ ] {{S10}} Tracking de acceso y acciones sobre contenidos (M4)\n\n<!-- key:E2 -->"
+    },
+    {
+      "key": "E3",
+      "title": "EPIC 3 · Interfaz web / portal",
+      "labels": [
+        "epic"
+      ],
+      "body": "Brief: [`docs/briefs/30-web.md`](../blob/main/docs/briefs/30-web.md) · Requisitos: §4\n\n## Issues\n- [ ] {{W01}} Portal por Marca: layout, navegación anónima y registrada (M2)\n- [ ] {{W02}} Registro con verificación de email y notificación configurable (M2)\n- [ ] {{W03}} Login y bloqueo por intentos fallidos (M2)\n- [ ] {{W04}} Recuperación de contraseña (M2)\n- [ ] {{W05}} Preferencias, suscripciones y consentimientos del consumidor (M2)\n- [ ] {{W06}} Baja del programa y supresión de datos (M2)\n- [ ] {{W07}} Verificación de elegibilidad configurable por Marca (M3)\n- [ ] {{W08}} Publicación de eventos de usuario del portal (M2)\n- [ ] {{W09}} Accesibilidad, responsive, compatibilidad y seguridad web (M2)\n- [ ] {{W10}} Analítica web con consentimiento de cookies (M4)\n\n<!-- key:E3 -->"
+    }
+  ],
+  "issues": [
+    {
+      "key": "P01",
+      "title": "Esqueleto del monorepo Maven, aplicación y CI",
+      "milestone": "M0",
+      "labels": [
+        "story",
+        "infra"
+      ],
+      "deps": [],
+      "body": "**Epic:** EPIC 0 · Plataforma base  \n**Requisito:** [`docs/requirements.md` §1](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/01-architecture.md`](../blob/main/docs/briefs/01-architecture.md)\n\n## Descripción\nCrear el parent POM y los módulos vacíos definidos en el brief de arquitectura, la aplicación Spring Boot arrancable, docker compose para desarrollo y el workflow de GitHub Actions.\n\n## Criterios de aceptación\n- [ ] Módulos `crm-common, crm-consumer, crm-rules, crm-campaign, crm-messaging, crm-tracking, crm-cms, crm-web, crm-admin-api, crm-app` compilan con Java 21\n- [ ] `docker compose up` levanta PostgreSQL 16, MailHog y un mock HTTP de pasarela SMS\n- [ ] `crm-app` arranca, aplica Flyway y expone `/actuator/health` en UP\n- [ ] GitHub Actions ejecuta `mvn -B verify` en cada PR\n- [ ] springdoc-openapi expone `/v3/api-docs`\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:P01 -->"
+    },
+    {
+      "key": "P02",
+      "title": "Reglas de arquitectura y calidad (ArchUnit, Spotless, JaCoCo)",
+      "milestone": "M0",
+      "labels": [
+        "story",
+        "infra"
+      ],
+      "deps": [
+        "P01"
+      ],
+      "body": "**Epic:** EPIC 0 · Plataforma base  \n**Requisito:** [`docs/requirements.md` §1 NFR-1](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/01-architecture.md`](../blob/main/docs/briefs/01-architecture.md)\n\n## Descripción\nGarantizar automáticamente la arquitectura hexagonal y los estándares de calidad.\n\n## Criterios de aceptación\n- [ ] Test ArchUnit: paquetes `..domain..` sin dependencias de Spring, JPA ni `..infrastructure..`\n- [ ] Test ArchUnit: ningún módulo accede a repositorios/entidades JPA de otro módulo\n- [ ] Spotless (google-java-format) falla el build si hay código sin formatear\n- [ ] JaCoCo exige ≥ 80 % de líneas en paquetes `domain`\n\n## Dependencias\nDepende de: {{P01}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:P02 -->"
+    },
+    {
+      "key": "P03",
+      "title": "Soporte multimarca: entidad Marca y contexto de tenant",
+      "milestone": "M0",
+      "labels": [
+        "story",
+        "infra"
+      ],
+      "deps": [
+        "P01"
+      ],
+      "body": "**Epic:** EPIC 0 · Plataforma base  \n**Requisito:** [`docs/requirements.md` NFR-2](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/01-architecture.md`](../blob/main/docs/briefs/01-architecture.md)\n\n## Descripción\nToda entidad de negocio pertenece a una Marca. El contexto de Marca se resuelve por petición y se aplica a todas las consultas.\n\n## Criterios de aceptación\n- [ ] Entidad `Brand` (id, código, nombre, dominio, idioma por defecto, estado) con migración\n- [ ] `TenantContext` resuelto por dominio/prefijo de ruta (portal) o cabecera/selector (admin)\n- [ ] Filtro de Marca aplicado en repositorios; test que demuestra que la Marca A no ve datos de la Marca B\n- [ ] Datos semilla de desarrollo: `Marca A` y `Marca B`\n\n## Dependencias\nDepende de: {{P01}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:P03 -->"
+    },
+    {
+      "key": "P04",
+      "title": "Usuarios internos, niveles de seguridad y roles",
+      "milestone": "M0",
+      "labels": [
+        "story",
+        "security"
+      ],
+      "deps": [
+        "P03"
+      ],
+      "body": "**Epic:** EPIC 0 · Plataforma base  \n**Requisito:** [`docs/requirements.md` §3.1](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/01-architecture.md`](../blob/main/docs/briefs/01-architecture.md)\n\n## Descripción\nUsuarios internos (gestores, productores…) con nivel ADMIN / GLOBAL_USER / LOCAL_USER y roles funcionales.\n\n## Criterios de aceptación\n- [ ] Entidad usuario interno con contraseña Argon2/BCrypt, nivel y roles (`CRM_MANAGER, PRODUCER, CONTENT_REVIEWER, DEVELOPER`)\n- [ ] LOCAL_USER solo opera sobre su Marca; GLOBAL_USER sobre todas; ADMIN además gestiona usuarios y Marcas\n- [ ] Login de administración (Spring Security) y API para gestionar usuarios internos (solo ADMIN)\n- [ ] Tests de autorización por nivel y rol\n\n## Dependencias\nDepende de: {{P03}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:P04 -->"
+    },
+    {
+      "key": "P05",
+      "title": "Modelo de consumidor y preferencias",
+      "milestone": "M0",
+      "labels": [
+        "story"
+      ],
+      "deps": [
+        "P03"
+      ],
+      "body": "**Epic:** EPIC 0 · Plataforma base  \n**Requisito:** [`docs/requirements.md` §4.6](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/01-architecture.md`](../blob/main/docs/briefs/01-architecture.md)\n\n## Descripción\nPerfil del consumidor por Marca con datos personales, idioma, segmento y preferencias clave-valor utilizables por las reglas.\n\n## Criterios de aceptación\n- [ ] Entidad `Consumer` (brandId, email, teléfono, idioma, fecha alta, estado ACTIVE/LOCKED/WITHDRAWN, atributos de perfil)\n- [ ] Preferencias tipadas clave-valor con historial de cambios\n- [ ] Email único por Marca\n- [ ] Cambio de perfil/preferencias publica evento de dominio `ConsumerProfileChanged`\n- [ ] API admin de consulta de consumidores paginada y filtrable\n\n## Dependencias\nDepende de: {{P03}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:P05 -->"
+    },
+    {
+      "key": "P06",
+      "title": "Consentimientos opt-in/opt-out auditables",
+      "milestone": "M0",
+      "labels": [
+        "story",
+        "privacy",
+        "modernized"
+      ],
+      "deps": [
+        "P05"
+      ],
+      "body": "**Epic:** EPIC 0 · Plataforma base  \n**Requisito:** [`docs/requirements.md` §2.12](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/01-architecture.md`](../blob/main/docs/briefs/01-architecture.md)\n\n## Descripción\nGestión de permisos por canal (email, SMS, MMS, push, suscripciones, programa CRM) con registro auditable.\n\n## Criterios de aceptación\n- [ ] Cada cambio registra canal, valor, fecha, origen (web, email, admin, importación) y actor\n- [ ] Servicio `ConsentChecker.isAllowed(consumer, channel)` usado por mensajería\n- [ ] Opt-out del programa CRM implica opt-out de todos los canales\n- [ ] Tests de cada canal y del opt-out global\n\n## Dependencias\nDepende de: {{P05}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:P06 -->"
+    },
+    {
+      "key": "P07",
+      "title": "Suscripciones a servicios del programa",
+      "milestone": "M0",
+      "labels": [
+        "story"
+      ],
+      "deps": [
+        "P06"
+      ],
+      "body": "**Epic:** EPIC 0 · Plataforma base  \n**Requisito:** [`docs/requirements.md` §2.11](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/01-architecture.md`](../blob/main/docs/briefs/01-architecture.md)\n\n## Descripción\nCatálogo de servicios suscribibles por Marca (boletín, novedades, comunicaciones periódicas) y suscripciones del consumidor.\n\n## Criterios de aceptación\n- [ ] Entidades `SubscriptionService` y `Subscription` con alta/baja y fechas\n- [ ] Suscribirse requiere opt-in de servicios de suscripción\n- [ ] Las suscripciones son utilizables como criterio en reglas (`subscribedTo`)\n\n## Dependencias\nDepende de: {{P06}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:P07 -->"
+    },
+    {
+      "key": "P08",
+      "title": "Motor de reglas de negocio: DSL y evaluación en memoria",
+      "milestone": "M0",
+      "labels": [
+        "story"
+      ],
+      "deps": [
+        "P05"
+      ],
+      "body": "**Epic:** EPIC 0 · Plataforma base  \n**Requisito:** [`docs/requirements.md` §2.1, §3.2](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/01-architecture.md`](../blob/main/docs/briefs/01-architecture.md)\n\n## Descripción\nDSL JSON único para segmentación, condiciones de workflow, personalización de contenidos y menús.\n\n## Criterios de aceptación\n- [ ] Operadores: `and, or, not, eq, ne, in, gt, lt, between, exists, contains`; campos de perfil, preferencias, consentimientos, suscripciones y eventos recientes\n- [ ] Validación de la regla con mensajes de error claros\n- [ ] Evaluación en memoria contra un `RuleContext` del consumidor\n- [ ] Tests de propiedad/tabla con ≥ 20 casos\n\n## Dependencias\nDepende de: {{P05}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:P08 -->"
+    },
+    {
+      "key": "P09",
+      "title": "Traducción del DSL de reglas a SQL para segmentación",
+      "milestone": "M0",
+      "labels": [
+        "story"
+      ],
+      "deps": [
+        "P08"
+      ],
+      "body": "**Epic:** EPIC 0 · Plataforma base  \n**Requisito:** [`docs/requirements.md` §2.10](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/01-architecture.md`](../blob/main/docs/briefs/01-architecture.md)\n\n## Descripción\nLas poblaciones grandes no pueden evaluarse en memoria: traducir la regla a una consulta parametrizada.\n\n## Criterios de aceptación\n- [ ] Traducción a SQL parametrizado (sin concatenar valores) para los operadores soportados\n- [ ] Test de equivalencia: mismo resultado en memoria y en SQL sobre un conjunto semilla (Testcontainers)\n- [ ] Reglas no traducibles se rechazan con error explícito\n\n## Dependencias\nDepende de: {{P08}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:P09 -->"
+    },
+    {
+      "key": "P10",
+      "title": "Cifrado de datos personales y comunicaciones",
+      "milestone": "M0",
+      "labels": [
+        "story",
+        "security"
+      ],
+      "deps": [
+        "P05"
+      ],
+      "body": "**Epic:** EPIC 0 · Plataforma base  \n**Requisito:** [`docs/requirements.md` §2.16](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/01-architecture.md`](../blob/main/docs/briefs/01-architecture.md)\n\n## Descripción\nCifrado en reposo de PII y en tránsito.\n\n## Criterios de aceptación\n- [ ] Email y teléfono cifrados en columna con AES-GCM; clave por configuración externa, nunca en el repo\n- [ ] Búsqueda por email mediante hash determinista (blind index)\n- [ ] TLS obligatorio con proveedores externos (SMTP STARTTLS, HTTPS)\n- [ ] ADR documentando gestión y rotación de claves\n\n## Dependencias\nDepende de: {{P05}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:P10 -->"
+    },
+    {
+      "key": "P11",
+      "title": "Eventos de dominio y registro de eventos de usuario",
+      "milestone": "M0",
+      "labels": [
+        "story",
+        "tracking"
+      ],
+      "deps": [
+        "P05"
+      ],
+      "body": "**Epic:** EPIC 0 · Plataforma base  \n**Requisito:** [`docs/requirements.md` §2.2](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/01-architecture.md`](../blob/main/docs/briefs/01-architecture.md)\n\n## Descripción\nInfraestructura de eventos interna y almacenamiento de eventos de usuario en `crm-tracking`.\n\n## Criterios de aceptación\n- [ ] Publicación de eventos de dominio (Spring events + outbox transaccional)\n- [ ] Tipos de evento de usuario: login, logout, clic en servicio, cambio de experiencia, email enviado, email abierto, clic en email, cambio de preferencias\n- [ ] Tabla de eventos consultable por consumidor, tipo y rango de fechas\n- [ ] Los eventos están disponibles para reglas (`eventOccurred(type, within)`)\n\n## Dependencias\nDepende de: {{P05}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:P11 -->"
+    },
+    {
+      "key": "P12",
+      "title": "Configuración por Marca",
+      "milestone": "M0",
+      "labels": [
+        "story",
+        "infra"
+      ],
+      "deps": [
+        "P03"
+      ],
+      "body": "**Epic:** EPIC 0 · Plataforma base  \n**Requisito:** [`docs/requirements.md` NFR-4](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/01-architecture.md`](../blob/main/docs/briefs/01-architecture.md)\n\n## Descripción\nParámetros de negocio configurables por Marca sin redespliegue.\n\n## Criterios de aceptación\n- [ ] Ajustes: remitente y asunto por tipo de notificación, idiomas, nº de reintentos por canal, umbral de bloqueo de login, proveedores activos\n- [ ] API admin para leer/modificar ajustes (ADMIN o GLOBAL_USER)\n- [ ] Valores por defecto razonables documentados\n\n## Dependencias\nDepende de: {{P03}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:P12 -->"
+    },
+    {
+      "key": "C01",
+      "title": "Poblaciones: criterio de segmentación e instancias",
+      "milestone": "M1",
+      "labels": [
+        "story",
+        "campaigns"
+      ],
+      "deps": [
+        "P09"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.10](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nDefinir poblaciones reutilizables y materializar instancias inmutables.\n\n## Criterios de aceptación\n- [ ] CRUD de `Population` con criterio en DSL validado\n- [ ] Materializar `PopulationInstance` (snapshot de consumer IDs y fecha) mediante SQL generado\n- [ ] Contar tamaño estimado sin materializar\n- [ ] Histórico: consultar qué instancias/campañas incluyeron a un consumidor\n\n## Dependencias\nDepende de: {{P09}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C01 -->"
+    },
+    {
+      "key": "C02",
+      "title": "Plantillas de mensaje (email texto, email HTML, SMS)",
+      "milestone": "M1",
+      "labels": [
+        "story",
+        "campaigns"
+      ],
+      "deps": [
+        "P05",
+        "P12"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.3](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nPlantillas con variables de personalización y variantes por idioma.\n\n## Criterios de aceptación\n- [ ] Tipos EMAIL_TEXT, EMAIL_HTML, SMS con motor de plantillas (Thymeleaf texto/HTML)\n- [ ] Variables del perfil y de la campaña; error si falta una variable obligatoria\n- [ ] Variantes por idioma con fallback al idioma por defecto de la Marca\n- [ ] Validación de longitud de SMS y segmentación\n- [ ] Enlace de baja obligatorio en emails\n\n## Dependencias\nDepende de: {{P05}} Depende de: {{P12}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C02 -->"
+    },
+    {
+      "key": "C03",
+      "title": "Canal email con varios servidores SMTP",
+      "milestone": "M1",
+      "labels": [
+        "story",
+        "campaigns"
+      ],
+      "deps": [
+        "P12"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.9](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nAdaptador de email con varios servidores en paralelo y estrategia de selección.\n\n## Criterios de aceptación\n- [ ] Varios servidores SMTP por Marca configurables\n- [ ] Estrategias: manual, round-robin, menor carga\n- [ ] Envío concurrente con límite configurable por servidor\n- [ ] Test de integración con GreenMail (2 servidores)\n\n## Dependencias\nDepende de: {{P12}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C03 -->"
+    },
+    {
+      "key": "C04",
+      "title": "Canal SMS con varios proveedores HTTP",
+      "milestone": "M1",
+      "labels": [
+        "story",
+        "campaigns"
+      ],
+      "deps": [
+        "P12"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.9](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nPuerto `SmsGateway` y adaptador HTTP genérico configurable; varios proveedores con selección.\n\n## Criterios de aceptación\n- [ ] Adaptador HTTP configurable (URL, auth, mapeo de respuesta) para proveedores genéricos\n- [ ] Selección de proveedor como en email\n- [ ] Recepción de acuses de entrega (webhook) que actualizan el estado\n- [ ] Tests con WireMock\n\n## Dependencias\nDepende de: {{P12}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C04 -->"
+    },
+    {
+      "key": "C05",
+      "title": "Outbox de comunicaciones con verificación de opt-in e idempotencia",
+      "milestone": "M1",
+      "labels": [
+        "story",
+        "campaigns",
+        "privacy"
+      ],
+      "deps": [
+        "P06",
+        "C03",
+        "C04"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.12, §2.14](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nToda comunicación se encola en un outbox persistente y se despacha por el canal tras verificar consentimiento.\n\n## Criterios de aceptación\n- [ ] Registro outbox con clave idempotente `(executionId, nodeId, consumerId, attemptGroup)` única\n- [ ] El despachador verifica opt-in del canal justo antes de enviar; si no hay, estado `SKIPPED_NO_CONSENT`\n- [ ] Despachador con ShedLock, seguro con varias instancias\n- [ ] Test: un consumidor sin opt-in nunca recibe envío\n\n## Dependencias\nDepende de: {{P06}} Depende de: {{C03}} Depende de: {{C04}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C05 -->"
+    },
+    {
+      "key": "C06",
+      "title": "Reintentos configurables y estado de fallo",
+      "milestone": "M1",
+      "labels": [
+        "story",
+        "campaigns"
+      ],
+      "deps": [
+        "C05"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.15](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nReintentos ante error del proveedor con backoff.\n\n## Criterios de aceptación\n- [ ] Nº de reintentos y backoff por Marca y canal\n- [ ] Errores permanentes (destinatario inválido) no se reintentan\n- [ ] Tras agotar reintentos, estado `FAILED` con motivo\n- [ ] Métricas de reintentos y fallos\n\n## Dependencias\nDepende de: {{C05}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C06 -->"
+    },
+    {
+      "key": "C07",
+      "title": "Modelo de campaña y definición de workflow",
+      "milestone": "M1",
+      "labels": [
+        "story",
+        "campaigns"
+      ],
+      "deps": [
+        "C01",
+        "C02"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.1](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nEntidad campaña y definición de workflow como grafo JSON/YAML versionado.\n\n## Criterios de aceptación\n- [ ] Campaña: población, canales, tipo, plantilla(s), workflow, estado\n- [ ] Esquema JSON de workflow con nodos ACTION, WAIT, CONDITION, END y validación (sin ciclos no controlados, nodos alcanzables)\n- [ ] Versionado: una ejecución queda ligada a la versión del workflow con que arrancó\n- [ ] API admin CRUD de campañas\n\n## Dependencias\nDepende de: {{C01}} Depende de: {{C02}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C07 -->"
+    },
+    {
+      "key": "C08",
+      "title": "Motor de workflow: ejecución de nodos ACTION, WAIT y END",
+      "milestone": "M1",
+      "labels": [
+        "story",
+        "campaigns"
+      ],
+      "deps": [
+        "C07",
+        "C05"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.1](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nMotor que avanza a cada consumidor por el grafo.\n\n## Criterios de aceptación\n- [ ] Estado por consumidor y nodo persistido\n- [ ] ACTION genera registros outbox; WAIT por duración; END cierra\n- [ ] Avance por ticks planificados con lotes configurables\n- [ ] Test de un workflow lineal enviar → esperar → enviar\n\n## Dependencias\nDepende de: {{C07}} Depende de: {{C05}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C08 -->"
+    },
+    {
+      "key": "C09",
+      "title": "Control de ejecución: arrancar, pausar, reanudar, parar",
+      "milestone": "M1",
+      "labels": [
+        "story",
+        "campaigns"
+      ],
+      "deps": [
+        "C08"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.13](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nControl de ejecución en cualquier fase.\n\n## Criterios de aceptación\n- [ ] Transiciones `CREATED→RUNNING⇄PAUSED→STOPPED|COMPLETED`; transiciones inválidas rechazadas\n- [ ] Pausa: no se generan ni despachan nuevos envíos; el estado de nodos persiste\n- [ ] Parada: definitiva; los pendientes del outbox se cancelan\n- [ ] API admin y tests de cada transición\n\n## Dependencias\nDepende de: {{C08}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C09 -->"
+    },
+    {
+      "key": "C10",
+      "title": "Recuperación ante caídas sin duplicados",
+      "milestone": "M1",
+      "labels": [
+        "story",
+        "campaigns"
+      ],
+      "deps": [
+        "C08",
+        "C06"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.14](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nTras reinicio, las campañas en curso continúan sin duplicar envíos.\n\n## Criterios de aceptación\n- [ ] Test de integración que interrumpe el despachador a mitad de lote y reinicia el contexto\n- [ ] Todos los pendientes se envían exactamente una vez (verificado en GreenMail)\n- [ ] Envíos en estado `SENDING` huérfanos se reconcilian con el proveedor o se reintentan de forma idempotente\n\n## Dependencias\nDepende de: {{C08}} Depende de: {{C06}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C10 -->"
+    },
+    {
+      "key": "C11",
+      "title": "Tracking de envíos y archivo de comunicaciones",
+      "milestone": "M1",
+      "labels": [
+        "story",
+        "campaigns",
+        "tracking"
+      ],
+      "deps": [
+        "C05"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.17](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nGuardar cada comunicación tal como la recibió el consumidor y su resultado.\n\n## Criterios de aceptación\n- [ ] Se guarda el contenido renderizado de cada envío\n- [ ] Estados: QUEUED, SENT, DELIVERED, BOUNCED/REJECTED, FAILED, SKIPPED_NO_CONSENT\n- [ ] API para ver el historial de comunicaciones de un consumidor y de una campaña\n- [ ] Previsualización de un mensaje para un consumidor antes de enviar\n\n## Dependencias\nDepende de: {{C05}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C11 -->"
+    },
+    {
+      "key": "C12",
+      "title": "Campañas de difusión (broadcast)",
+      "milestone": "M1",
+      "labels": [
+        "story",
+        "campaigns"
+      ],
+      "deps": [
+        "C09",
+        "C11"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.4](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nEnvío de novedades a toda la comunidad o a un segmento con un workflow de un solo paso.\n\n## Criterios de aceptación\n- [ ] Plantilla de workflow `broadcast` lista para usar\n- [ ] Envío respetando opt-ins y con throttling configurable\n- [ ] Test de extremo a extremo con población de 1.000 consumidores semilla\n\n## Dependencias\nDepende de: {{C09}} Depende de: {{C11}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C12 -->"
+    },
+    {
+      "key": "C13",
+      "title": "Exportaciones por plantilla de fichero y consulta SQL",
+      "milestone": "M1",
+      "labels": [
+        "story",
+        "campaigns"
+      ],
+      "deps": [
+        "C01"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.3](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nGenerar listas para canales externos (p. ej. correo postal).\n\n## Criterios de aceptación\n- [ ] Tipo FILE_EXPORT: genera CSV con columnas configurables a partir de una instancia\n- [ ] Tipo SQL_EXPORT: plantilla de consulta parametrizada de solo lectura, ejecutada con usuario de BD sin permisos de escritura\n- [ ] Ficheros descargables vía API admin con auditoría\n\n## Dependencias\nDepende de: {{C01}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C13 -->"
+    },
+    {
+      "key": "C14",
+      "title": "Tracking de apertura de email",
+      "milestone": "M3",
+      "labels": [
+        "story",
+        "campaigns",
+        "tracking"
+      ],
+      "deps": [
+        "C11",
+        "P11"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.17](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nDetectar aperturas mediante píxel de seguimiento.\n\n## Criterios de aceptación\n- [ ] Píxel único por envío; endpoint que registra `EMAIL_OPENED` una vez por envío (ignora repeticiones para el estado, cuenta totales)\n- [ ] Respeta preferencia de no seguimiento si el consumidor la tiene\n- [ ] Evento disponible para condiciones de workflow\n\n## Dependencias\nDepende de: {{C11}} Depende de: {{P11}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C14 -->"
+    },
+    {
+      "key": "C15",
+      "title": "Tracking de clics con códigos por zona",
+      "milestone": "M3",
+      "labels": [
+        "story",
+        "campaigns",
+        "tracking"
+      ],
+      "deps": [
+        "C11",
+        "P11"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.17](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nReescritura de enlaces con código de respuesta distinto por zona clicable.\n\n## Criterios de aceptación\n- [ ] Reescritura de enlaces en emails HTML con token firmado y código de zona\n- [ ] Endpoint de redirección que registra `EMAIL_CLICKED{zone}` y redirige solo a destinos permitidos (sin open redirect)\n- [ ] Evento disponible para condiciones de workflow\n\n## Dependencias\nDepende de: {{C11}} Depende de: {{P11}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C15 -->"
+    },
+    {
+      "key": "C16",
+      "title": "Condiciones y esperas por evento en el workflow; workflow de referencia",
+      "milestone": "M3",
+      "labels": [
+        "story",
+        "campaigns"
+      ],
+      "deps": [
+        "C14",
+        "C15",
+        "C08"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.1](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nNodos CONDITION sobre eventos y WAIT con timeout, con el ejemplo de invitación implementado.\n\n## Criterios de aceptación\n- [ ] CONDITION evalúa reglas sobre eventos del consumidor (abrió, clic en zona X…)\n- [ ] WAIT-hasta-evento con timeout y rama alternativa\n- [ ] Workflow de referencia de invitación (ver brief 10) como plantilla y test de integración que recorre las tres ramas\n\n## Dependencias\nDepende de: {{C14}} Depende de: {{C15}} Depende de: {{C08}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C16 -->"
+    },
+    {
+      "key": "C17",
+      "title": "Campañas disparadas por eventos (triggered)",
+      "milestone": "M3",
+      "labels": [
+        "story",
+        "campaigns"
+      ],
+      "deps": [
+        "C16"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.6](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nEntrada de consumidores en un workflow al producirse un evento.\n\n## Criterios de aceptación\n- [ ] Disparador configurable: tipo de evento + regla adicional\n- [ ] Ejemplo: consumidores que cambian su perfil reciben un mensaje en < 1 min\n- [ ] Protección contra re-entrada configurable (una vez, una vez por periodo, siempre)\n\n## Dependencias\nDepende de: {{C16}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C17 -->"
+    },
+    {
+      "key": "C18",
+      "title": "Generación de códigos únicos de respuesta y canje",
+      "milestone": "M3",
+      "labels": [
+        "story",
+        "campaigns"
+      ],
+      "deps": [
+        "C08"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.2](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nAcción de workflow que genera códigos únicos por consumidor.\n\n## Criterios de aceptación\n- [ ] Códigos no adivinables, únicos por campaña, con caducidad opcional\n- [ ] Variable disponible en plantillas\n- [ ] API de validación/canje de código idempotente\n\n## Dependencias\nDepende de: {{C08}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C18 -->"
+    },
+    {
+      "key": "C19",
+      "title": "Campañas Member get Member (MGM)",
+      "milestone": "M3",
+      "labels": [
+        "story",
+        "campaigns",
+        "privacy"
+      ],
+      "deps": [
+        "C16",
+        "C18"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.5](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nUn consumidor recomienda a un contacto; se envía la invitación y se espera respuesta.\n\n## Criterios de aceptación\n- [ ] Formulario/endpoint de recomendación con límite por consumidor y antispam\n- [ ] El invitado recibe una única comunicación transaccional con enlace de registro trazable; sus datos no se usan para otras campañas sin opt-in propio\n- [ ] Si el invitado se registra, el emisor avanza en su workflow (p. ej. recompensa)\n- [ ] Test del ciclo completo\n\n## Dependencias\nDepende de: {{C16}} Depende de: {{C18}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C19 -->"
+    },
+    {
+      "key": "C20",
+      "title": "Campañas de coleccionables (puntos/códigos)",
+      "milestone": "M3",
+      "labels": [
+        "story",
+        "campaigns"
+      ],
+      "deps": [
+        "C18"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.7](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nAcumulación y uso de puntos o códigos dentro del sitio.\n\n## Criterios de aceptación\n- [ ] Saldo de puntos por consumidor con libro de movimientos (alta, canje, caducidad)\n- [ ] Acciones de workflow: otorgar y canjear puntos; condición sobre saldo\n- [ ] Endpoint en el portal para ver saldo y canjear\n- [ ] Operaciones concurrentes consistentes (test)\n\n## Dependencias\nDepende de: {{C18}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C20 -->"
+    },
+    {
+      "key": "C21",
+      "title": "Canal de notificaciones push",
+      "milestone": "M3",
+      "labels": [
+        "story",
+        "campaigns",
+        "modernized"
+      ],
+      "deps": [
+        "C05",
+        "W01"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.2, §2.3](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nSustituye a WAP push del documento original: notificaciones Web Push.\n\n## Criterios de aceptación\n- [ ] Registro de suscripciones Web Push (VAPID) desde el portal con opt-in de canal push\n- [ ] Plantillas PUSH y adaptador de envío\n- [ ] Integrado con outbox, reintentos y tracking\n\n## Dependencias\nDepende de: {{C05}} Depende de: {{W01}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C21 -->"
+    },
+    {
+      "key": "C22",
+      "title": "Buzón del portal y banners/modales",
+      "milestone": "M3",
+      "labels": [
+        "story",
+        "campaigns",
+        "web"
+      ],
+      "deps": [
+        "C08",
+        "W01"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.2](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nAcciones que muestran mensajes dentro del portal.\n\n## Criterios de aceptación\n- [ ] Mensajes de inbox por consumidor con leído/no leído\n- [ ] Banners/modales dirigidos por campaña mostrados en la siguiente visita\n- [ ] Eventos de visualización y clic registrados\n\n## Dependencias\nDepende de: {{C08}} Depende de: {{W01}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C22 -->"
+    },
+    {
+      "key": "C23",
+      "title": "Pruebas de campaña (dry-run)",
+      "milestone": "M3",
+      "labels": [
+        "story",
+        "campaigns"
+      ],
+      "deps": [
+        "C16"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.8](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nAnalizar resultados esperados antes del lanzamiento.\n\n## Criterios de aceptación\n- [ ] Dry-run sobre una instancia: nº de consumidores por rama y canal, excluidos por falta de consentimiento\n- [ ] Envío de prueba a una lista de destinatarios internos\n- [ ] Ningún dry-run genera envíos reales ni eventos de tracking\n\n## Dependencias\nDepende de: {{C16}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C23 -->"
+    },
+    {
+      "key": "C24",
+      "title": "Catálogo de plantillas de workflow reutilizables",
+      "milestone": "M3",
+      "labels": [
+        "story",
+        "campaigns"
+      ],
+      "deps": [
+        "C16",
+        "C19"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` §2.1](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nLas lógicas de campaña se definen a partir de plantillas parametrizables.\n\n## Criterios de aceptación\n- [ ] Catálogo con al menos: broadcast, invitación a evento, bienvenida, reactivación, MGM\n- [ ] Parámetros declarados (plantillas de mensaje, esperas, canales) y validación al instanciar\n- [ ] Crear campaña desde plantilla sin escribir JSON a mano\n\n## Dependencias\nDepende de: {{C16}} Depende de: {{C19}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:C24 -->"
+    },
+    {
+      "key": "S01",
+      "title": "Modelo de contenido, tipos y assets",
+      "milestone": "M2",
+      "labels": [
+        "story",
+        "cms",
+        "modernized"
+      ],
+      "deps": [
+        "P04"
+      ],
+      "body": "**Epic:** EPIC 2 · Gestión de contenidos (CMS)  \n**Requisito:** [`docs/requirements.md` §3.3](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/20-cms.md`](../blob/main/docs/briefs/20-cms.md)\n\n## Descripción\nContenidos y ficheros multimedia por Marca.\n\n## Criterios de aceptación\n- [ ] Tipos: imagen (JPG/PNG/GIF/WebP/SVG), PDF, ofimática, vídeo (MP4/WebM), ZIP, texto, HTML/XML/Markdown; extensible\n- [ ] Validación de tipo MIME real y tamaño máximo; SVG/HTML saneados\n- [ ] Puerto `AssetStorage` con implementación en filesystem\n- [ ] API admin de subida, metadatos y etiquetas\n\n## Dependencias\nDepende de: {{P04}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:S01 -->"
+    },
+    {
+      "key": "S02",
+      "title": "Versionado de contenidos",
+      "milestone": "M2",
+      "labels": [
+        "story",
+        "cms"
+      ],
+      "deps": [
+        "S01"
+      ],
+      "body": "**Epic:** EPIC 2 · Gestión de contenidos (CMS)  \n**Requisito:** [`docs/requirements.md` §3](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/20-cms.md`](../blob/main/docs/briefs/20-cms.md)\n\n## Descripción\nHistorial de versiones con restauración.\n\n## Criterios de aceptación\n- [ ] Cada edición crea versión nueva; consulta del historial y diff de metadatos\n- [ ] Restaurar una versión anterior crea una nueva versión\n- [ ] Solo una versión publicada a la vez\n\n## Dependencias\nDepende de: {{S01}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:S02 -->"
+    },
+    {
+      "key": "S03",
+      "title": "Workflow editorial con notificaciones",
+      "milestone": "M2",
+      "labels": [
+        "story",
+        "cms"
+      ],
+      "deps": [
+        "S02"
+      ],
+      "body": "**Epic:** EPIC 2 · Gestión de contenidos (CMS)  \n**Requisito:** [`docs/requirements.md` §3](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/20-cms.md`](../blob/main/docs/briefs/20-cms.md)\n\n## Descripción\nProductor crea → Revisor revisa → aprobador publica.\n\n## Criterios de aceptación\n- [ ] Estados DRAFT, IN_REVIEW, APPROVED, PUBLISHED, ARCHIVED con transiciones por rol\n- [ ] Notificación por email a los implicados en cada transición\n- [ ] Comentarios de revisión\n- [ ] Solo PUBLISHED se sirve en el portal\n\n## Dependencias\nDepende de: {{S02}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:S03 -->"
+    },
+    {
+      "key": "S04",
+      "title": "Permisos por categoría y tipo de contenido",
+      "milestone": "M2",
+      "labels": [
+        "story",
+        "cms",
+        "security"
+      ],
+      "deps": [
+        "S03"
+      ],
+      "body": "**Epic:** EPIC 2 · Gestión de contenidos (CMS)  \n**Requisito:** [`docs/requirements.md` §3.1](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/20-cms.md`](../blob/main/docs/briefs/20-cms.md)\n\n## Descripción\nAsignar responsabilidades por categoría/tipo.\n\n## Criterios de aceptación\n- [ ] Categorías de contenido por Marca\n- [ ] Permisos (ver, editar, revisar, publicar) por rol y categoría\n- [ ] Tests de autorización\n\n## Dependencias\nDepende de: {{S03}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:S04 -->"
+    },
+    {
+      "key": "S05",
+      "title": "Plantillas de página y catálogo de componentes",
+      "milestone": "M2",
+      "labels": [
+        "story",
+        "cms",
+        "modernized"
+      ],
+      "deps": [
+        "S01"
+      ],
+      "body": "**Epic:** EPIC 2 · Gestión de contenidos (CMS)  \n**Requisito:** [`docs/requirements.md` §3.5](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/20-cms.md`](../blob/main/docs/briefs/20-cms.md)\n\n## Descripción\nLas páginas se construyen con plantillas compuestas por slots y componentes.\n\n## Criterios de aceptación\n- [ ] Plantilla: cabecera, pie, menú y slots con tipos de componente permitidos\n- [ ] Componentes base: miniatura, imagen, vídeo corto, vídeo, noticia breve (±imagen, ±vídeo), noticia (±imagen, ±vídeo), banner/modal, cabecera multimedia, pie multimedia, hero (HTML5, sin Flash)\n- [ ] Fragmentos Thymeleaf por componente; añadir uno nuevo no requiere tocar el motor\n- [ ] Gestión de plantillas restringida al rol DEVELOPER\n\n## Dependencias\nDepende de: {{S01}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:S05 -->"
+    },
+    {
+      "key": "S06",
+      "title": "Renderizado personalizado según reglas",
+      "milestone": "M2",
+      "labels": [
+        "story",
+        "cms"
+      ],
+      "deps": [
+        "S05",
+        "P08"
+      ],
+      "body": "**Epic:** EPIC 2 · Gestión de contenidos (CMS)  \n**Requisito:** [`docs/requirements.md` §3.2, §3.5](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/20-cms.md`](../blob/main/docs/briefs/20-cms.md)\n\n## Descripción\nComposición en tiempo real de la página según perfil y preferencias.\n\n## Criterios de aceptación\n- [ ] Cada slot elige contenido, posición y variante visual por reglas del DSL\n- [ ] Contenido por defecto cuando ninguna regla aplica\n- [ ] Contenidos con regla de audiencia no se muestran a quien no la cumple\n- [ ] Caché de fragmentos no personalizados; p95 de renderizado < 200 ms con datos semilla\n\n## Dependencias\nDepende de: {{S05}} Depende de: {{P08}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:S06 -->"
+    },
+    {
+      "key": "S07",
+      "title": "Menú de navegación dinámico",
+      "milestone": "M2",
+      "labels": [
+        "story",
+        "cms"
+      ],
+      "deps": [
+        "S06"
+      ],
+      "body": "**Epic:** EPIC 2 · Gestión de contenidos (CMS)  \n**Requisito:** [`docs/requirements.md` §3.4](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/20-cms.md`](../blob/main/docs/briefs/20-cms.md)\n\n## Descripción\nMenús con visibilidad gobernada por reglas.\n\n## Criterios de aceptación\n- [ ] Ítems jerárquicos con enlace, orden y regla de visibilidad\n- [ ] Ítems restringidos ocultos para anónimos\n- [ ] Tests con perfiles distintos\n\n## Dependencias\nDepende de: {{S06}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:S07 -->"
+    },
+    {
+      "key": "S08",
+      "title": "Contenidos multiidioma",
+      "milestone": "M2",
+      "labels": [
+        "story",
+        "cms"
+      ],
+      "deps": [
+        "S01"
+      ],
+      "body": "**Epic:** EPIC 2 · Gestión de contenidos (CMS)  \n**Requisito:** [`docs/requirements.md` §3.8](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/20-cms.md`](../blob/main/docs/briefs/20-cms.md)\n\n## Descripción\nVariantes de contenido por idioma.\n\n## Criterios de aceptación\n- [ ] Idiomas habilitados por Marca\n- [ ] Variante por idioma con fallback al idioma por defecto\n- [ ] Selección por preferencia del consumidor o cabecera `Accept-Language` para anónimos\n\n## Dependencias\nDepende de: {{S01}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:S08 -->"
+    },
+    {
+      "key": "S09",
+      "title": "Previsualización con perfil simulado",
+      "milestone": "M2",
+      "labels": [
+        "story",
+        "cms"
+      ],
+      "deps": [
+        "S06"
+      ],
+      "body": "**Epic:** EPIC 2 · Gestión de contenidos (CMS)  \n**Requisito:** [`docs/requirements.md` §3.7](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/20-cms.md`](../blob/main/docs/briefs/20-cms.md)\n\n## Descripción\nVer una página como la vería un perfil concreto antes de publicar.\n\n## Criterios de aceptación\n- [ ] Endpoint de preview con perfil simulado editable y fecha simulada\n- [ ] Incluye contenidos en DRAFT/APPROVED marcados visualmente\n- [ ] No registra tracking ni eventos\n\n## Dependencias\nDepende de: {{S06}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:S09 -->"
+    },
+    {
+      "key": "S10",
+      "title": "Tracking de acceso y acciones sobre contenidos",
+      "milestone": "M4",
+      "labels": [
+        "story",
+        "cms",
+        "tracking"
+      ],
+      "deps": [
+        "S06",
+        "P11"
+      ],
+      "body": "**Epic:** EPIC 2 · Gestión de contenidos (CMS)  \n**Requisito:** [`docs/requirements.md` §3.6](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/20-cms.md`](../blob/main/docs/briefs/20-cms.md)\n\n## Descripción\nRegistrar contenidos vistos y acciones realizadas.\n\n## Criterios de aceptación\n- [ ] Evento por contenido mostrado y por acción (clic, descarga, reproducción)\n- [ ] Agregados por contenido, Marca y periodo\n- [ ] Eventos utilizables en reglas\n\n## Dependencias\nDepende de: {{S06}} Depende de: {{P11}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:S10 -->"
+    },
+    {
+      "key": "W01",
+      "title": "Portal por Marca: layout, navegación anónima y registrada",
+      "milestone": "M2",
+      "labels": [
+        "story",
+        "web"
+      ],
+      "deps": [
+        "S06",
+        "S07"
+      ],
+      "body": "**Epic:** EPIC 3 · Interfaz web / portal  \n**Requisito:** [`docs/requirements.md` §4.1](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/30-web.md`](../blob/main/docs/briefs/30-web.md)\n\n## Descripción\nPortal SSR que compone sus páginas con el CMS.\n\n## Criterios de aceptación\n- [ ] Resolución de Marca por dominio/prefijo\n- [ ] Páginas públicas para anónimos; contenido restringido redirige a login\n- [ ] Layout base con menú dinámico y páginas desde plantillas del CMS\n\n## Dependencias\nDepende de: {{S06}} Depende de: {{S07}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:W01 -->"
+    },
+    {
+      "key": "W02",
+      "title": "Registro con verificación de email y notificación configurable",
+      "milestone": "M2",
+      "labels": [
+        "story",
+        "web",
+        "modernized"
+      ],
+      "deps": [
+        "W01",
+        "P06",
+        "C02"
+      ],
+      "body": "**Epic:** EPIC 3 · Interfaz web / portal  \n**Requisito:** [`docs/requirements.md` §4.2](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/30-web.md`](../blob/main/docs/briefs/30-web.md)\n\n## Descripción\nAlta de consumidores en el portal.\n\n## Criterios de aceptación\n- [ ] Formulario con validación cliente/servidor y recogida de consentimientos explícitos\n- [ ] Email de verificación con enlace de un solo uso; cuenta activa tras verificar\n- [ ] Remitente, asunto y plantilla HTML configurables por Marca\n- [ ] Nunca se envía la contraseña por email\n\n## Dependencias\nDepende de: {{W01}} Depende de: {{P06}} Depende de: {{C02}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:W02 -->"
+    },
+    {
+      "key": "W03",
+      "title": "Login y bloqueo por intentos fallidos",
+      "milestone": "M2",
+      "labels": [
+        "story",
+        "web",
+        "security"
+      ],
+      "deps": [
+        "W02"
+      ],
+      "body": "**Epic:** EPIC 3 · Interfaz web / portal  \n**Requisito:** [`docs/requirements.md` §4.8](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/30-web.md`](../blob/main/docs/briefs/30-web.md)\n\n## Descripción\nAutenticación del consumidor con protección contra fuerza bruta.\n\n## Criterios de aceptación\n- [ ] Login con sesión segura; evento LOGIN/LOGOUT publicado\n- [ ] Bloqueo tras N intentos (configurable por Marca), estado LOCKED\n- [ ] Email con enlace de desbloqueo de un solo uso\n- [ ] Rate limiting por IP\n\n## Dependencias\nDepende de: {{W02}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:W03 -->"
+    },
+    {
+      "key": "W04",
+      "title": "Recuperación de contraseña",
+      "milestone": "M2",
+      "labels": [
+        "story",
+        "web",
+        "security",
+        "modernized"
+      ],
+      "deps": [
+        "W02"
+      ],
+      "body": "**Epic:** EPIC 3 · Interfaz web / portal  \n**Requisito:** [`docs/requirements.md` §4.3](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/30-web.md`](../blob/main/docs/briefs/30-web.md)\n\n## Descripción\nRestablecimiento seguro.\n\n## Criterios de aceptación\n- [ ] Solicitud por email o usuario; respuesta idéntica exista o no la cuenta\n- [ ] Token de un solo uso con caducidad configurable\n- [ ] Invalida sesiones abiertas tras el cambio\n\n## Dependencias\nDepende de: {{W02}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:W04 -->"
+    },
+    {
+      "key": "W05",
+      "title": "Preferencias, suscripciones y consentimientos del consumidor",
+      "milestone": "M2",
+      "labels": [
+        "story",
+        "web",
+        "privacy"
+      ],
+      "deps": [
+        "W03",
+        "P07"
+      ],
+      "body": "**Epic:** EPIC 3 · Interfaz web / portal  \n**Requisito:** [`docs/requirements.md` §4.5, §4.6](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/30-web.md`](../blob/main/docs/briefs/30-web.md)\n\n## Descripción\nÁrea personal para gestionar datos y permisos.\n\n## Criterios de aceptación\n- [ ] Edición de datos personales, idioma y preferencias\n- [ ] Alta/baja de suscripciones y opt-in/out por canal (auditado)\n- [ ] Cambios disponibles inmediatamente para reglas y campañas\n\n## Dependencias\nDepende de: {{W03}} Depende de: {{P07}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:W05 -->"
+    },
+    {
+      "key": "W06",
+      "title": "Baja del programa y supresión de datos",
+      "milestone": "M2",
+      "labels": [
+        "story",
+        "web",
+        "privacy",
+        "modernized"
+      ],
+      "deps": [
+        "W05",
+        "C05"
+      ],
+      "body": "**Epic:** EPIC 3 · Interfaz web / portal  \n**Requisito:** [`docs/requirements.md` §4.4](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/30-web.md`](../blob/main/docs/briefs/30-web.md)\n\n## Descripción\nBaja desde el portal y desde el enlace de cada comunicación.\n\n## Criterios de aceptación\n- [ ] Baja desde el menú (autenticado) y desde enlace firmado en emails (sin login)\n- [ ] Opt-out global inmediato y cancelación de envíos pendientes\n- [ ] Anonimización de PII conservando agregados estadísticos; política documentada en ADR\n- [ ] Etiquetar `needs-decision` si falta validación legal del alcance de la supresión\n\n## Dependencias\nDepende de: {{W05}} Depende de: {{C05}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:W06 -->"
+    },
+    {
+      "key": "W07",
+      "title": "Verificación de elegibilidad configurable por Marca",
+      "milestone": "M3",
+      "labels": [
+        "story",
+        "web",
+        "campaigns"
+      ],
+      "deps": [
+        "W02",
+        "C16"
+      ],
+      "body": "**Epic:** EPIC 3 · Interfaz web / portal  \n**Requisito:** [`docs/requirements.md` §4.2](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/30-web.md`](../blob/main/docs/briefs/30-web.md)\n\n## Descripción\nPaso adicional de registro exigido por algunas Marcas, implementado como campaña interactiva.\n\n## Criterios de aceptación\n- [ ] Activable por Marca; mientras no se complete, el consumidor queda `PENDING_VERIFICATION` sin acceso a contenido restringido ni comunicaciones comerciales\n- [ ] Puerto `EligibilityVerifier` con implementación de ejemplo (declaración + revisión manual)\n- [ ] Al completarse, acceso concedido y notificación en un único mensaje\n\n## Dependencias\nDepende de: {{W02}} Depende de: {{C16}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:W07 -->"
+    },
+    {
+      "key": "W08",
+      "title": "Publicación de eventos de usuario del portal",
+      "milestone": "M2",
+      "labels": [
+        "story",
+        "web",
+        "tracking"
+      ],
+      "deps": [
+        "W03",
+        "P11"
+      ],
+      "body": "**Epic:** EPIC 3 · Interfaz web / portal  \n**Requisito:** [`docs/requirements.md` §2.2](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/30-web.md`](../blob/main/docs/briefs/30-web.md)\n\n## Descripción\nEl portal alimenta el registro de eventos.\n\n## Criterios de aceptación\n- [ ] Eventos de login, logout, clic en servicio, cambio de experiencia y de preferencias\n- [ ] Asíncrono: no afecta a la latencia de la página\n- [ ] Test que verifica cada evento\n\n## Dependencias\nDepende de: {{W03}} Depende de: {{P11}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:W08 -->"
+    },
+    {
+      "key": "W09",
+      "title": "Accesibilidad, responsive, compatibilidad y seguridad web",
+      "milestone": "M2",
+      "labels": [
+        "story",
+        "web",
+        "security",
+        "modernized"
+      ],
+      "deps": [
+        "W02"
+      ],
+      "body": "**Epic:** EPIC 3 · Interfaz web / portal  \n**Requisito:** [`docs/requirements.md` §4.7](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/30-web.md`](../blob/main/docs/briefs/30-web.md)\n\n## Descripción\nRequisitos de calidad del portal.\n\n## Criterios de aceptación\n- [ ] Responsive; probado en las dos últimas versiones de Chrome, Firefox, Safari y Edge\n- [ ] WCAG 2.1 AA: test automático con axe sobre páginas principales sin violaciones serias\n- [ ] CSRF, CSP, HSTS y demás cabeceras de seguridad\n- [ ] Validación dinámica de formularios en cliente coherente con la del servidor\n\n## Dependencias\nDepende de: {{W02}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:W09 -->"
+    },
+    {
+      "key": "W10",
+      "title": "Analítica web con consentimiento de cookies",
+      "milestone": "M4",
+      "labels": [
+        "story",
+        "web",
+        "tracking",
+        "modernized"
+      ],
+      "deps": [
+        "W01"
+      ],
+      "body": "**Epic:** EPIC 3 · Interfaz web / portal  \n**Requisito:** [`docs/requirements.md` §4.9](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/30-web.md`](../blob/main/docs/briefs/30-web.md)\n\n## Descripción\nIntegración configurable con una herramienta de analítica web.\n\n## Criterios de aceptación\n- [ ] Banner de consentimiento de cookies por categorías\n- [ ] Snippet de analítica configurable por Marca, cargado solo con consentimiento\n- [ ] Sin datos personales en la URL ni en eventos de analítica\n\n## Dependencias\nDepende de: {{W01}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:W10 -->"
+    },
+    {
+      "key": "K01",
+      "title": "KPIs de campañas y API de informes",
+      "milestone": "M4",
+      "labels": [
+        "story",
+        "tracking"
+      ],
+      "deps": [
+        "C16",
+        "S10"
+      ],
+      "body": "**Epic:** EPIC 1 · Gestión de campañas  \n**Requisito:** [`docs/requirements.md` NFR-7](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/10-campaigns.md`](../blob/main/docs/briefs/10-campaigns.md)\n\n## Descripción\nMarco de medición de rendimiento.\n\n## Criterios de aceptación\n- [ ] Por campaña y nodo: enviados, entregados, fallidos, aperturas, clics (únicos/totales), conversiones\n- [ ] API admin con filtros por Marca, campaña y periodo\n- [ ] Consultas sobre vistas/agregados precalculados\n\n## Dependencias\nDepende de: {{C16}} Depende de: {{S10}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:K01 -->"
+    },
+    {
+      "key": "K02",
+      "title": "Exportación a herramienta de BI",
+      "milestone": "M4",
+      "labels": [
+        "story",
+        "infra"
+      ],
+      "deps": [
+        "K01"
+      ],
+      "body": "**Epic:** EPIC 0 · Plataforma base  \n**Requisito:** [`docs/requirements.md` NFR-3](../blob/main/docs/requirements.md)  \n**Brief:** [`docs/briefs/01-architecture.md`](../blob/main/docs/briefs/01-architecture.md)\n\n## Descripción\nAdaptar la plataforma a la herramienta de reporting existente.\n\n## Criterios de aceptación\n- [ ] Vistas SQL documentadas de solo lectura para BI (sin PII en claro)\n- [ ] Exportación programada CSV/Parquet configurable\n- [ ] Documentación del modelo de datos analítico\n\n## Dependencias\nDepende de: {{K01}}\n\n## Definition of Done\nVer `CLAUDE.md`.\n\n<!-- key:K02 -->"
+    }
+  ]
+}
