@@ -48,6 +48,11 @@ public class ConsumerService {
         .orElseThrow(() -> new NotFoundException("Consumidor no encontrado: " + id));
   }
 
+  /** Consumidor de la Marca actual, si existe (vacío sin Marca en contexto). */
+  public java.util.Optional<Consumer> find(ConsumerId id) {
+    return TenantContext.current().isEmpty() ? java.util.Optional.empty() : consumers.findById(id);
+  }
+
   public PageResult<Consumer> search(ConsumerSearchCriteria criteria, PageQuery page) {
     TenantContext.require();
     return consumers.search(criteria, page);
