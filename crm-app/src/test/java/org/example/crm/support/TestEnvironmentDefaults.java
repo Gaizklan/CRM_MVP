@@ -10,10 +10,15 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 
 /**
- * Solo tests: genera en memoria claves de cifrado de PII aleatorias (una vez por JVM) si no se han
- * definido por entorno. Nunca hay claves en el repositorio.
+ * Solo tests: valores por defecto del entorno de pruebas.
+ *
+ * <ul>
+ *   <li>Claves de cifrado de PII aleatorias generadas en memoria (una vez por JVM) si no se han
+ *       definido por entorno. Nunca hay claves en el repositorio.
+ *   <li>Relay del outbox sin planificación: los tests lo invocan explícitamente.
+ * </ul>
  */
-public class TestPiiKeys implements EnvironmentPostProcessor {
+public class TestEnvironmentDefaults implements EnvironmentPostProcessor {
 
   private static final Map<String, Object> KEYS = generate();
 
@@ -34,9 +39,14 @@ public class TestPiiKeys implements EnvironmentPostProcessor {
 
   @Override
   public void postProcessEnvironment(ConfigurableEnvironment env, SpringApplication application) {
+    Map<String, Object> defaults = new HashMap<>();
     String configured = env.getProperty("crm.crypto.pii.active-key");
     if (configured == null || configured.isBlank()) {
-      env.getPropertySources().addFirst(new MapPropertySource("test-pii-keys", KEYS));
+      defaults.putAll(KEYS);
     }
+    if (env.getProperty("crm.outbox.relay.enabled") == null) {
+      defaults.put("crm.outbox.relay.enabled", "false");
+    }
+    env.getPropertySources().addFirst(new MapPropertySource("test-defaults", defaults));
   }
 }

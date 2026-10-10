@@ -22,4 +22,5 @@ Opción 3, con estas piezas:
 ## Consecuencias
 - Las consultas SQL nativas (p. ej. segmentación) **no** pasan por el filtro de Hibernate: deben incluir `brand_id = :brandId` explícitamente.
 - El uso de `callAsRoot` debe limitarse a infraestructura revisada.
+- Hibernate asocia la Marca a la **sesión** al abrirla: el `TenantContext` debe fijarse **antes** de iniciar la transacción (lo hacen `TenantFilter` en peticiones web y `OutboxRelay` antes de la transacción de cada evento). Cambiar de Marca dentro de una transacción abierta no tiene efecto sobre la sesión ya abierta (detectado en P11).
 - La tabla `brand` y las tablas de plataforma (usuarios internos) no son entidades con Marca.
