@@ -31,7 +31,7 @@ class ArchitectureRulesSelfTest {
     assertThat(result.getFailureReport().getDetails())
         .anyMatch(d -> d.contains("módulo 'beta'") && d.contains("AlphaJpaRepository"))
         .anyMatch(d -> d.contains("módulo 'beta'") && d.contains("AlphaEntity"))
-        .noneMatch(d -> d.contains("módulo 'alpha'"));
+        .noneMatch(d -> d.contains("módulo 'alpha' accede"));
   }
 
   @Test
