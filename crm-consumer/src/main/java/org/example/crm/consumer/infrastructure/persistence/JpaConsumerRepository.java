@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import org.example.crm.common.application.PageQuery;
 import org.example.crm.common.application.PageResult;
+import org.example.crm.common.application.crypto.PiiCipher;
 import org.example.crm.consumer.application.ConsumerRepository;
 import org.example.crm.consumer.domain.Consumer;
 import org.example.crm.consumer.domain.ConsumerId;
@@ -26,21 +27,25 @@ class JpaConsumerRepository implements ConsumerRepository {
 
   private final SpringDataConsumerRepository consumers;
   private final SpringDataPreferenceHistoryRepository history;
+  private final PiiCipher cipher;
 
   JpaConsumerRepository(
-      SpringDataConsumerRepository consumers, SpringDataPreferenceHistoryRepository history) {
+      SpringDataConsumerRepository consumers,
+      SpringDataPreferenceHistoryRepository history,
+      PiiCipher cipher) {
     this.consumers = consumers;
     this.history = history;
+    this.cipher = cipher;
   }
 
   @Override
   public Optional<Consumer> findById(ConsumerId id) {
-    return consumers.findById(id.value()).map(ConsumerJpaEntity::toDomain);
+    return consumers.findById(id.value()).map(e -> e.toDomain(cipher));
   }
 
   @Override
   public Optional<Consumer> findByEmail(Email email) {
-    return consumers.findByEmail(email.value()).map(ConsumerJpaEntity::toDomain);
+    return consumers.findByEmailHash(cipher.blindIndex(email.value())).map(e -> e.toDomain(cipher));
   }
 
   @Override
@@ -51,7 +56,7 @@ class JpaConsumerRepository implements ConsumerRepository {
             PageRequest.of(
                 page.page(), page.size(), Sort.by("registeredAt").descending().and(Sort.by("id"))));
     return new PageResult<>(
-        result.getContent().stream().map(ConsumerJpaEntity::toDomain).toList(),
+        result.getContent().stream().map(e -> e.toDomain(cipher)).toList(),
         page.page(),
         page.size(),
         result.getTotalElements());
@@ -65,13 +70,13 @@ class JpaConsumerRepository implements ConsumerRepository {
             .findById(consumer.id().value())
             .map(
                 existing -> {
-                  existing.apply(consumer);
+                  existing.apply(consumer, cipher);
                   return existing;
                 })
-            .orElseGet(() -> ConsumerJpaEntity.create(consumer));
+            .orElseGet(() -> ConsumerJpaEntity.create(consumer, cipher));
     ConsumerJpaEntity saved = consumers.saveAndFlush(entity);
     history.saveAll(preferenceChanges.stream().map(PreferenceHistoryJpaEntity::from).toList());
-    return saved.toDomain();
+    return saved.toDomain(cipher);
   }
 
   @Override
@@ -81,11 +86,11 @@ class JpaConsumerRepository implements ConsumerRepository {
         .toList();
   }
 
-  private static Specification<ConsumerJpaEntity> specification(ConsumerSearchCriteria c) {
+  private Specification<ConsumerJpaEntity> specification(ConsumerSearchCriteria c) {
     return (root, query, cb) -> {
       List<Predicate> predicates = new ArrayList<>();
       if (c.email() != null) {
-        predicates.add(cb.equal(root.get("email"), c.email().value()));
+        predicates.add(cb.equal(root.get("emailHash"), cipher.blindIndex(c.email().value())));
       }
       if (c.status() != null) {
         predicates.add(cb.equal(root.get("status"), c.status()));

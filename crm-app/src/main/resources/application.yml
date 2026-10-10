@@ -1,3 +1,7 @@
+server:
+  # TLS en tránsito: la aplicación se despliega tras un proxy/balanceador que termina TLS.
+  forward-headers-strategy: framework
+
 spring:
   application:
     name: crm-platform
@@ -23,6 +27,17 @@ management:
       show-details: never
 
 crm:
+  # Claves de cifrado de PII: SOLO por entorno o gestor de secretos (ADR 0002). Sin claves, la
+  # aplicación no arranca.
+  crypto:
+    pii:
+      active-key-id: ${CRM_PII_ENCRYPTION_KEY_ID:k1}
+      active-key: ${CRM_PII_ENCRYPTION_KEY:}
+      previous-keys: ${CRM_PII_PREVIOUS_KEYS:}
+      blind-index-key: ${CRM_PII_BLIND_INDEX_KEY:}
+  # TLS obligatorio con proveedores externos (SMTP STARTTLS, HTTPS).
+  outbound-tls:
+    allow-insecure-localhost: false
   # Primer usuario ADMIN, creado solo si no existe ningún usuario interno. Solo por entorno.
   bootstrap-admin:
     username: ${CRM_BOOTSTRAP_ADMIN_USERNAME:}

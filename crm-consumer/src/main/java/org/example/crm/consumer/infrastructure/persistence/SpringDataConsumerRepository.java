@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 interface SpringDataConsumerRepository
     extends JpaRepository<ConsumerJpaEntity, UUID>, JpaSpecificationExecutor<ConsumerJpaEntity> {
 
-  Optional<ConsumerJpaEntity> findByEmail(String email);
+  Optional<ConsumerJpaEntity> findByEmailHash(String emailHash);
 }
