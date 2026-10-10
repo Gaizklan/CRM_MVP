@@ -12,9 +12,9 @@ import org.example.crm.common.domain.ConflictException;
 import org.example.crm.common.domain.NotFoundException;
 import org.junit.jupiter.api.Test;
 
-class BrandServiceTest {
+public class BrandServiceTest {
 
-  static final class InMemoryBrandRepository implements BrandRepository {
+  public static final class InMemoryBrandRepository implements BrandRepository {
     final List<Brand> brands = new ArrayList<>();
 
     @Override
