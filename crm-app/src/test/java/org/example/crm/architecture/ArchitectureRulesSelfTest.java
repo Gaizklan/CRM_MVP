@@ -26,12 +26,14 @@ class ArchitectureRulesSelfTest {
   @Test
   void detectsAccessToAnotherModulesRepositoryAndEntity() {
     EvaluationResult result =
-        ArchitectureRules.noCrossModulePersistenceAccess("archfixtures").evaluate(fixtures);
+        ArchitectureRules.noCrossModulePersistenceAccess("archfixtures", "shared")
+            .evaluate(fixtures);
 
     assertThat(result.getFailureReport().getDetails())
         .anyMatch(d -> d.contains("módulo 'beta'") && d.contains("AlphaJpaRepository"))
         .anyMatch(d -> d.contains("módulo 'beta'") && d.contains("AlphaEntity"))
-        .noneMatch(d -> d.contains("módulo 'alpha' accede"));
+        .noneMatch(d -> d.contains("módulo 'alpha' accede"))
+        .noneMatch(d -> d.contains("SharedBaseEntity"));
   }
 
   @Test
@@ -39,7 +41,9 @@ class ArchitectureRulesSelfTest {
     JavaClasses alphaOnly = new ClassFileImporter().importPackages("archfixtures.alpha");
 
     assertThatCode(
-            () -> ArchitectureRules.noCrossModulePersistenceAccess("archfixtures").check(alphaOnly))
+            () ->
+                ArchitectureRules.noCrossModulePersistenceAccess("archfixtures", "shared")
+                    .check(alphaOnly))
         .doesNotThrowAnyException();
   }
 }

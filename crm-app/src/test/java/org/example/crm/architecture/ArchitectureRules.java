@@ -44,20 +44,26 @@ final class ArchitectureRules {
 
   /**
    * Ningún módulo accede a entidades JPA, repositorios Spring Data ni a la capa de infraestructura
-   * de otro módulo. Los módulos se comunican por puertos (application) o eventos de dominio.
+   * de otro módulo. Los módulos se comunican por puertos (application) o eventos de dominio. El
+   * kernel compartido ({@code crm-common}) es la excepción: aporta la base de persistencia común.
    */
-  static ArchRule noCrossModulePersistenceAccess(String rootPackage) {
+  static ArchRule noCrossModulePersistenceAccess(String rootPackage, String sharedKernelModule) {
     return classes()
         .that()
         .resideInAPackage(rootPackage + "..")
-        .should(notAccessPersistenceOfOtherModules(rootPackage))
+        .should(notAccessPersistenceOfOtherModules(rootPackage, sharedKernelModule))
         .as(
             "ningún módulo accede a repositorios/entidades JPA ni a la infraestructura de otro"
                 + " módulo")
         .allowEmptyShould(true);
   }
 
-  private static ArchCondition<JavaClass> notAccessPersistenceOfOtherModules(String rootPackage) {
+  /**
+   * @param sharedKernelModule módulo kernel compartido ({@code common}): su infraestructura base
+   *     (p. ej. {@code BrandScopedEntity}) puede usarse desde cualquier módulo.
+   */
+  private static ArchCondition<JavaClass> notAccessPersistenceOfOtherModules(
+      String rootPackage, String sharedKernelModule) {
     Pattern modulePattern =
         Pattern.compile("^" + Pattern.quote(rootPackage) + "\\.([^.]+)(\\..*)?$");
     return new ArchCondition<>("not access persistence of other modules") {
@@ -69,7 +75,8 @@ final class ArchitectureRules {
           Optional<String> targetModule = moduleOf(target, modulePattern);
           if (targetModule.isEmpty()
               || targetModule.equals(originModule)
-              || originModule.isEmpty()) {
+              || originModule.isEmpty()
+              || targetModule.get().equals(sharedKernelModule)) {
             continue;
           }
           if (isPersistenceType(target) || target.getPackageName().contains(".infrastructure")) {
